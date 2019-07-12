@@ -30,6 +30,22 @@ Create a config.json with the following information:
 
 I use multiple `projects` in the Google API Dashboard. Google's quota limit is set to 10,000 UNITS. Each (1) search costs 100 UNITS. The solution is to just create multiple projects, as the quota is tracker per project.
 
+Send a `POST` request to `127.0.0.1:5000/get_videos` with a json body containing the following:
+
+```
+{
+  "user": "LastFmUsernameYouWantToSearch"
+}
+```
+
+You'll get back a json of the results.
+
+To change the number of artists looked up, go to app.py and look for this line:
+
+`artists = fm.get_top_x(data['user'], 'artists', 100)`
+
+100 artists will require 300 separate searches. 300 * 100 unit cost = 30,000 Units = 3 separate google projects
+
 # Supported live performance channels
 
 I've only added in the following
