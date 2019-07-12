@@ -25,7 +25,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data['user'], 'artists', '100')
+        artists = fm.get_top_x(data['user'], 'artists', 20)
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
@@ -33,7 +33,7 @@ def get_videos():
     if not artists:
         abort(503)
 
-    for artist in artists[50:]:
+    for artist in artists:
         try:
             yt.search(artist)
         except YoutubeAPIError:
