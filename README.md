@@ -44,7 +44,7 @@ To change the number of artists looked up, go to app.py and look for this line:
 
 `artists = fm.get_top_x(data['user'], 'artists', 100)`
 
-100 artists will require 300 separate searches. 300 * 100 unit cost = 30,000 Units = 3 separate google projects
+100 artists will require 400 separate searches. 400 * 100 unit cost = 40,000 Units = 4 separate google projects. I plan on optimizing this in the future.
 
 # Supported live performance channels
 
