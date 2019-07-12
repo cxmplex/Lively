@@ -28,6 +28,8 @@ Create a config.json with the following information:
 
 ```
 
+I use multiple `projects` in the Google API Dashboard. Google's quota limit is set to 10,000 UNITS. Each (1) search costs 100 UNITS. The solution is to just create multiple projects, as the quota is tracker per project.
+
 # Supported live performance channels
 
 I've only added in the following
