@@ -11,10 +11,10 @@ from connectors.youtube import Youtube, YoutubeAPIError
 
 app = Flask(__name__)
 
-DEVELOPER_KEYS = get_config('youtube', 'API_KEYS')
+DEVELOPER_KEYS = get_config("youtube", "API_KEYS")
 
 
-@app.route('/get_videos', methods=['POST'])
+@app.route("/get_videos", methods=["POST"])
 def get_videos():
     if not request.json:
         abort(400)
@@ -28,7 +28,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data['user'], 'artists', 20)
+        artists = fm.get_top_x(data["user"], "artists", 20)
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
@@ -49,5 +49,5 @@ def get_videos():
     return json.dumps(yt.videos)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
