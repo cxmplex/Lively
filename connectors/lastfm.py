@@ -2,6 +2,7 @@
 # github.com/cxmplex
 
 import pylast
+
 from config.reader import get_config
 
 LASTFM_API_KEY = get_config('lastfm', 'LASTFM_API_KEY')
@@ -22,10 +23,10 @@ class LastFm:
         lfm_user = self.lfm.get_user(user)
         try:
             if type_ == 'artists':
-                return [item[0] for item in lfm_user.get_top_artists(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_artists(limit=limit)]
             if type_ == 'tracks':
-                return [item[0] for item in lfm_user.get_top_tracks(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_tracks(limit=limit)]
             if type_ == 'albums':
-                return [item[0] for item in lfm_user.get_top_albums(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_albums(limit=limit)]
         except Exception as e:
             raise LastFmAPIError(str(e))
