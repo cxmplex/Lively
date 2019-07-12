@@ -6,6 +6,28 @@ Finds live performances on Youtube from your favorites artists on Last.Fm
 
 This is the back-end to a website that I'm working on. It's a bit sloppy currently, will be refactored once the front-end is done.
 
+# How to use
+
+Create a config.json with the following information:
+
+```
+{
+  "lastfm": {
+    "LASTFM_USERNAME": "YOUR_USERNAME",
+    "LASTFM_PASSWORD": "YOUR_PASSWORD",
+    "LASTFM_API_KEY": "YOUR_API_KEY",
+    "LASTFM_API_SECRET": "YOUR_API_SECRET"
+  },
+  "youtube": {
+    "API_KEYS": ["key1", "key2", "etc"]
+    "YOUTUBE_API_SERVICE_NAME": "youtube",
+    "YOUTUBE_API_VERSION": "v3",
+    "YOUTUBE_URL": "https://youtube.com/watch?v={}"
+  }
+}
+
+```
+
 # Supported live performance channels
 
 I've only added in the following
