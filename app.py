@@ -1,3 +1,6 @@
+# Ben Humphrey
+# github.com/cxmplex
+
 import json
 
 from flask import Flask, request, abort
