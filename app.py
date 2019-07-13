@@ -56,7 +56,7 @@ def create_playlist():
         abort(400)
     data = request.json
 
-    yt = Youtube('AIzaSyDJrecSWOMWWr22SfIaRrWhjD2lgwVaKjo')
+    yt = Youtube('')
     res = yt.create_playlist(data["items"])
 
     if not res:
