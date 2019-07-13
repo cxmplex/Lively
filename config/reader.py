@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Ben Humphrey
 # github.com/cxmplex
 

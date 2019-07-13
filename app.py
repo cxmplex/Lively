@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Ben Humphrey
 # github.com/cxmplex
 
@@ -28,7 +29,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data["user"], "artists", 20)
+        artists = fm.get_top_x(data["user"], "artists", 150)
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
@@ -47,6 +48,20 @@ def get_videos():
             yt.search(artist)
 
     return json.dumps(yt.videos)
+
+
+@app.route("/create_playlist", methods=["POST"])
+def create_playlist():
+    if not request.json:
+        abort(400)
+    data = request.json
+
+    yt = Youtube('AIzaSyDJrecSWOMWWr22SfIaRrWhjD2lgwVaKjo')
+    res = yt.create_playlist(data["items"])
+
+    if not res:
+        abort(503)
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 if __name__ == "__main__":
