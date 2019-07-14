@@ -29,7 +29,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data["user"], "artists", 50)
+        artists = fm.get_top_x(data["user"], "artists", get_config("lastfm", "LIMIT"))
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
@@ -38,16 +38,18 @@ def get_videos():
         abort(503)
 
     for artist in artists:
-        try:
-            yt.search(artist)
-        except YoutubeAPIError:
-            # WHY: Youtube has a dumb quota system, each search is 100 quota out of 10,000 maximum
-            key = DEVELOPER_KEYS[0]
-            DEVELOPER_KEYS.remove(key)
-            yt = Youtube(key)
-            yt.search(artist)
+        should_break = False
+        while not should_break:
+            try:
+                yt.search(artist)
+                should_break = True
+            except YoutubeAPIError:
+                # WHY: Youtube has a dumb quota system, each search is 100 quota out of 10,000 maximum
+                key = DEVELOPER_KEYS[0]
+                DEVELOPER_KEYS.remove(key)
+                yt = Youtube(key)
 
-    return json.dumps(yt.videos)
+    return json.dumps(list(yt.videos))
 
 
 @app.route("/create_playlist", methods=["POST"])

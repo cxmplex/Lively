@@ -36,8 +36,8 @@ class Youtube:
             ],
             "KCRW": [r"(?i)KCRW"],
             "NPR tiny desk": [r"(?i)NPR.+?Tiny\s+Desk"],
-            "Like A Version": [r"(?i){}.+?Like.{0,10}A{0,10}Version"],
-            "Sofar": [r"(?i){}.+?|.{0,10}Sofar"]
+            "Like A Version": [r"(?i){}.+?Like\s+A\s+Version"],
+            "Sofar": [r"(?i){}.+?\|.+?Sofar"]
         }
 
     @property
@@ -63,9 +63,7 @@ class Youtube:
                                 query, result["snippet"]["title"]
                         ):
                             if not result["id"]["videoId"] in self._videos:
-                                self._videos[
-                                    YOUTUBE_URL.format(result["id"]["videoId"])
-                                ] = result["snippet"]["title"]
+                                self._videos[result["id"]["videoId"]] = result["snippet"]["title"]
 
     def create_playlist(self, items):
         playlist_body = {
