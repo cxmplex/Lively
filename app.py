@@ -37,7 +37,10 @@ def get_videos():
     if not artists:
         abort(503)
 
+    ignores = list(x.lower() for x in data['ignore'])
     for artist in artists:
+        if artist.lower() in ignores:
+            continue
         should_break = False
         while not should_break:
             try:
