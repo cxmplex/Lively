@@ -52,7 +52,7 @@ def get_videos():
                 DEVELOPER_KEYS.remove(key)
                 yt = Youtube(key)
 
-    return json.dumps(list(yt.videos))
+    return json.dumps(yt.videos)
 
 
 @app.route("/create_playlist", methods=["POST"])

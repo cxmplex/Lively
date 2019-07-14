@@ -16,6 +16,7 @@ YOUTUBE_API_VERSION = get_config("youtube", "YOUTUBE_API_VERSION")
 YOUTUBE_URL = get_config("youtube", "YOUTUBE_URL")
 CLIENT_SECRETS_FILE = 'youtube_secret.json'
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+SECRETS = get_config("youtube", "SECRETS")
 
 
 class YoutubeAPIError(Exception):
@@ -38,7 +39,7 @@ class Youtube:
             "NPR tiny desk": [r"(?i)NPR.+?Tiny\s+Desk"],
             "Like A Version": [r"(?i){}.+?Like\s+A\s+Version"],
             "Sofar": [r"(?i){}.+?\|.+?Sofar"],
-            "Mahogany Session": [r"(?i){}.+?|\s+Mahogany Session"]
+            "Mahogany Session": [r"(?i){}.+?\|\s+Mahogany Session"]
         }
 
     @property
@@ -76,7 +77,7 @@ class Youtube:
                 }
             }
         }
-        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, scopes)
+        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(SECRETS[0], scopes)
         credentials = flow.run_console()
         try:
             self.yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, credentials=credentials)
@@ -103,13 +104,20 @@ class Youtube:
                     }
                 }
             }
-            try:
-                request = self.yt.playlistItems().insert(
-                    part="snippet",
-                    body=body
-                )
-                response = request.execute()
-                if not response:
-                    raise YoutubeAPIError("Invalid PlaylistItems addition.")
-            except Exception as e:
-                raise YoutubeAPIError(str(e))
+            should_break = False
+            while not should_break:
+                try:
+                    request = self.yt.playlistItems().insert(
+                        part="snippet",
+                        body=body
+                    )
+                    response = request.execute()
+                    if not response:
+                        raise YoutubeAPIError("Invalid PlaylistItems addition.")
+                    should_break = True
+                except Exception:
+                    secret = SECRETS[0]
+                    SECRETS.remove(secret)
+                    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(SECRETS[0], scopes)
+                    credentials = flow.run_console()
+                    self.yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, credentials=credentials)
