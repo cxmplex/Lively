@@ -36,6 +36,8 @@ class Youtube:
             ],
             "KCRW": [r"(?i)KCRW"],
             "NPR tiny desk": [r"(?i)NPR.+?Tiny\s+Desk"],
+            "Like A Version": [r"(?i){}.+?Like.{0,10}A{0,10}Version"],
+            "Sofar": [r"(?i){}.+?|.{0,10}Sofar"]
         }
 
     @property
@@ -49,8 +51,7 @@ class Youtube:
                     self.yt.search()
                         .list(
                         q="{} {}".format(query, term), part="id,snippet", maxResults=10
-                    )
-                        .execute()
+                    ).execute()
                 )
             except HttpError as e:
                 raise (YoutubeAPIError(str(e)))
@@ -58,7 +59,7 @@ class Youtube:
             for result in response.get("items", []):
                 if result["id"]["kind"] == "youtube#video":
                     for filter_ in filters:
-                        if re.search(filter_, result["snippet"]["title"]) and re.search(
+                        if re.search(filter_.format(query), result["snippet"]["title"]) and re.search(
                                 query, result["snippet"]["title"]
                         ):
                             if not result["id"]["videoId"] in self._videos:
@@ -109,5 +110,7 @@ class Youtube:
                     body=body
                 )
                 response = request.execute()
+                if not response:
+                    raise YoutubeAPIError("Invalid PlaylistItems addition.")
             except Exception as e:
                 raise YoutubeAPIError(str(e))

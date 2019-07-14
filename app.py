@@ -29,7 +29,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data["user"], "artists", 150)
+        artists = fm.get_top_x(data["user"], "artists", 50)
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
@@ -56,7 +56,7 @@ def create_playlist():
         abort(400)
     data = request.json
 
-    yt = Youtube('')
+    yt = Youtube(get_config("youtube", "PLAYLIST_KEY"))
     res = yt.create_playlist(data["items"])
 
     if not res:
