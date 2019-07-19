@@ -22,14 +22,14 @@ class LastFm:
             api_key=LASTFM_API_KEY, api_secret=LASTFM_API_SECRET
         )
 
-    def get_top_x(self, user, type_, limit):
+    def get_top_x(self, user, type_, limit, period):
         lfm_user = self.lfm.get_user(user)
         try:
             if type_ == "artists":
-                return [item[0].name for item in lfm_user.get_top_artists(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_artists(period=period, limit=limit)]
             if type_ == "tracks":
-                return [item[0].name for item in lfm_user.get_top_tracks(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_tracks(period=period, limit=limit)]
             if type_ == "albums":
-                return [item[0].name for item in lfm_user.get_top_albums(limit=limit)]
+                return [item[0].name for item in lfm_user.get_top_albums(period=period, limit=limit)]
         except Exception as e:
             raise LastFmAPIError(str(e))

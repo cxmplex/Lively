@@ -29,7 +29,7 @@ def get_videos():
 
     artists = None
     try:
-        artists = fm.get_top_x(data["user"], "artists", get_config("lastfm", "LIMIT"))
+        artists = fm.get_top_x(data["user"], "artists", get_config("lastfm", "LIMIT"), get_config("lastfm", "PERIOD"))
     except LastFmAPIError as e:
         print(str(e))
         abort(503)
