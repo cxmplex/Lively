@@ -8,6 +8,7 @@ from flask import Flask, request, abort
 
 from config.reader import get_config
 from connectors.lastfm import LastFm, LastFmAPIError
+from connectors.spotify import SpotifyAPI, SpotifyAPIError
 from connectors.youtube import Youtube, YoutubeAPIError
 
 app = Flask(__name__)
@@ -28,15 +29,24 @@ def get_videos():
     yt = Youtube(key)
 
     artists = None
-    try:
-        artists = fm.get_top_x(data["user"], "artists", get_config("lastfm", "LIMIT"), get_config("lastfm", "PERIOD"))
-    except LastFmAPIError as e:
-        print(str(e))
-        abort(503)
-
+    if data["user"] and not data["playlist"]:
+        try:
+            artists = fm.get_top_x(data["user"], "artists", get_config("lastfm", "LIMIT"),
+                                   get_config("lastfm", "PERIOD"))
+        except LastFmAPIError as e:
+            print(str(e))
+            abort(503)
+    if data["playlist"] and data["user"]:
+        try:
+            sp = SpotifyAPI()
+            artists = sp.get_playlist(data["user"], data["playlist"], data["ignore"])
+        except SpotifyAPIError as e:
+            print(str(e))
+            abort(503)
     if not artists:
+        print("Didn't find any artists, aborting")
         abort(503)
-
+    # this should be in individual connectors probably like I do above for spotify
     ignores = list(x.lower() for x in data['ignore'])
     for artist in artists:
         if artist.lower() in ignores:

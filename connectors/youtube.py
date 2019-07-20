@@ -39,7 +39,8 @@ class Youtube:
             "NPR tiny desk": [r"(?i)NPR.+?Tiny\s+Desk"],
             "Like A Version": [r"(?i){}.+?Like\s+A\s+Version"],
             "Sofar": [r"(?i){}.+?\|.+?Sofar"],
-            "Mahogany Session": [r"(?i){}.+?\|\s+Mahogany Session"]
+            "Mahogany Session": [r"(?i){}.+?\|\s+Mahogany Session"],
+            "WFUV": [r"(?i)Live\s+at\s+WFUV"]
         }
 
     @property
