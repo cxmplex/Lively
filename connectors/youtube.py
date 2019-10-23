@@ -40,7 +40,10 @@ class Youtube:
             "Like A Version": [r"(?i){}.+?Like\s+A\s+Version"],
             "Sofar": [r"(?i){}.+?\|.+?Sofar"],
             "Mahogany Session": [r"(?i){}.+?\|\s+Mahogany Session"],
-            "WFUV": [r"(?i)Live\s+at\s+WFUV"]
+            "WFUV": [r"(?i)Live\s+at\s+WFUV"],
+            "EQX House Sessions": [r"(?i)EQX\sHouse\sSessions"],
+            "Audiotree": [r"(?i)on\sAudiotree\sLive"],
+            "KXT": [r"(?i)KXT\sLive\sSessions"]
         }
 
     @property
