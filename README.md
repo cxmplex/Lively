@@ -23,6 +23,10 @@ Create a config.json with the following information:
     "YOUTUBE_API_SERVICE_NAME": "youtube",
     "YOUTUBE_API_VERSION": "v3",
     "YOUTUBE_URL": "https://youtube.com/watch?v={}"
+  },
+  "spotify": {
+      "CLIENT_ID": "",
+      "CLIENT_SECRET": ""
   }
 }
 
