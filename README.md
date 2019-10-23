@@ -22,7 +22,13 @@ Create a config.json with the following information:
     "API_KEYS": ["key1", "key2", "etc"]
     "YOUTUBE_API_SERVICE_NAME": "youtube",
     "YOUTUBE_API_VERSION": "v3",
-    "YOUTUBE_URL": "https://youtube.com/watch?v={}"
+    "YOUTUBE_URL": "https://youtube.com/watch?v={}",
+    "PLAYLIST_KEY": "",
+    "SECRETS": ""
+  },
+  "spotify": {
+      "CLIENT_ID": "",
+      "CLIENT_SECRET": ""
   }
 }
 
@@ -48,10 +54,17 @@ To change the number of artists looked up, go to app.py and look for this line:
 
 # Supported live performance channels
 
-I've only added in the following
+I've added in the following
 
 * KEXP
 * KCRW
 * NPR Tiny Desk
+* Like a Version
+* Sofar
+* Mahogany Sessions
+* WFUV
+* EQX House Session
+* Audiotree
+* KXT
 
 Raise an issue if you'd like me to add more.
