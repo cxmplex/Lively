@@ -18,6 +18,7 @@ DEVELOPER_KEYS = get_config("youtube", "API_KEYS")
 
 @app.route("/get_videos", methods=["POST"])
 def get_videos():
+    print("Received request for videos")
     if not request.json:
         abort(400)
 
@@ -67,6 +68,7 @@ def get_videos():
 
 @app.route("/create_playlist", methods=["POST"])
 def create_playlist():
+    print("Received request for playlist")
     if not request.json:
         abort(400)
     data = request.json

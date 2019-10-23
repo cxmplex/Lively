@@ -125,3 +125,4 @@ class Youtube:
                     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(SECRETS[0], scopes)
                     credentials = flow.run_console()
                     self.yt = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, credentials=credentials)
+        return True
