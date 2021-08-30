@@ -6,6 +6,8 @@ Finds live performances on Youtube from your favorites artists on Last.Fm
 
 This is the back-end to a website that I'm working on. It's a bit sloppy currently, will be refactored once the front-end is done.
 
+- Implements Spotify API, Youtube API, Last FM API
+
 # How to use
 
 Create a config.json with the following information:
